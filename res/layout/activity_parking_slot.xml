@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="fill_parent"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/firstMainLine1" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/firstMainLine"
+        android:id="@+id/spot"
+        android:src="@drawable/spot"/>
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/secondSectionTopLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/secondTopLine" />
+
+
+            <LinearLayout
+                android:id="@+id/topLeftCarSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="left">
+                
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car1"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car2"
+                    android:layout_marginLeft="3dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car3"
+                    android:layout_marginLeft="3dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car4"
+                    android:layout_marginLeft="3dp"
+                    android:src="@drawable/car_top_green"/>
+
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="3dp"
+                android:id="@+id/thirdTopLine" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="60dp"
+                android:id="@+id/fourthTopLine" />
+
+
+            <LinearLayout
+                android:id="@+id/topRightCarSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="right"
+                android:gravity="right">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car10"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car11"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car12"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car13"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/gap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+
+
+        </LinearLayout>
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="CONFIRM"
+            android:id="@+id/confirm"
+            android:layout_gravity="top"/>
+
+        <LinearLayout
+            android:id="@+id/secondSectionBottomLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/secondBottomLine" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car5"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car6"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car7"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car8"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+                <!--  <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car9"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/> -->
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/thirdBottomLine" />
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/darker_gray"
+                android:layout_marginLeft="60dp"
+                android:id="@+id/fourthBottomLine" />
+
+
+            <LinearLayout
+                android:id="@+id/bottompRightCarSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="right"
+                android:gravity="right">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car14"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car15"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car16"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car17"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/>
+               <!--   <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/secondTopLine"
+                    android:id="@+id/car18"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/car_top_green"/> -->
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="1dp"
+        android:layout_marginLeft="25dp"
+        android:layout_height="fill_parent"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/lastMainLine1" />
+
+</LinearLayout>

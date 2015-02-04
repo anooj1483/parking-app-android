@@ -82,7 +82,7 @@ public class Dashboard extends Activity {
     public String getParkingStatus() {
 
         HttpRequestWorker mWorker = new HttpRequestWorker();
-        String status = mWorker.GetRequest(ServerConnector.parkingstatus);
+        String status = mWorker.GetRequest(ServerConnector.PARKING_STATUS);
         Log.e("CONTENT SLOT", status);
         /*JsonParser mParse=new JsonParser();
         JsonElement mElement=mParse.parse(status);

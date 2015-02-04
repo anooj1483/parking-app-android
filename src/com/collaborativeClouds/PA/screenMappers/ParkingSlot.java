@@ -134,10 +134,13 @@ public class ParkingSlot extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				mConfirmSlot.setEnabled(false);
 				if (selectedSlot != null) {
 					Log.e("SELECTED SLOT", selectedSlot);
 					isConfirmPressed = true;
 					new BookSlot().execute();
+				}else{
+					mConfirmSlot.setEnabled(true);
 				}
 			}
 		});
@@ -148,6 +151,7 @@ public class ParkingSlot extends Activity {
 		@Override
 		public void onClick(View v) {
 			if (!isAlreadyBooked) {
+				mConfirmSlot.setEnabled(true);
 				if (!hashTable
 						.get(v.getId())
 						.toString()
@@ -165,6 +169,7 @@ public class ParkingSlot extends Activity {
 				}
 			}else{
 				//Toast.makeText(getApplicationContext(), "You are already booked to a Slot", Toast.LENGTH_LONG).show();
+				mConfirmSlot.setEnabled(false);
 				showAlert("Message", "You are already booked to a Slot.\nPlease remove it with your Code: "+Config.CODE);
 			}
 		}
@@ -286,6 +291,7 @@ public class ParkingSlot extends Activity {
 									if (!status.equals("Failed")) {
 										Config.CODE=status;
 										isAlreadyBooked=true;
+										mConfirmSlot.setEnabled(false);
 										
 									} else {
 										showAlert("Alert", "Failed to Book the Slot");
@@ -322,6 +328,7 @@ public class ParkingSlot extends Activity {
 												// TODO Auto-generated method
 												// stub
 												isAlreadyBooked = true;
+												mConfirmSlot.setEnabled(false);
 												SlotBuilder(
 														slotno,
 														R.drawable.car_black_top);
@@ -331,11 +338,12 @@ public class ParkingSlot extends Activity {
 									} catch (Exception e) {
 										isAlreadyBooked = false;
 										Log.e("PARSER ERROR", e + "");
+										mConfirmSlot.setEnabled(true);
 									}
 
 								}
 							} catch (Exception e) {
-
+								mConfirmSlot.setEnabled(true);
 							}
 
 						}

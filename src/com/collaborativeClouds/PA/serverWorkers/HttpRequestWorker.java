@@ -29,6 +29,7 @@ public class HttpRequestWorker {
         try {
             HttpClient mClient = new DefaultHttpClient();
             HttpGet mHttpGet = new HttpGet(url);
+            mHttpGet.setHeader("username", Config.USERNAME);
             ResponseHandler<String> mResponseHandler = new BasicResponseHandler();
             String mStatus = mClient.execute(mHttpGet, mResponseHandler);
             Log.e("RESPONSE",""+mStatus);

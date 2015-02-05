@@ -100,87 +100,85 @@ public class RemoveSlot extends Activity {
 		@Override
 		protected String doInBackground(String... args) {
 
-			runOnUiThread(new Runnable() {
+			if (!isDeletePressed) {
+				try {
+					HttpRequestWorker mWorker = new HttpRequestWorker();
+					JSONObject mObject = new JSONObject();
+					mObject.put("username", Config.USERNAME);
+					status = mWorker.PostRequest(
+							ServerConnector.GET_SLOT,
+							mObject.toString(), true);
 
-				@Override
-				public void run() {
+					return status;
+				} catch (Exception e) {
 
-					Thread mThread = new Thread(new Runnable() {
-						@Override
-						public void run() {
-							if (!isDeletePressed) {
-								try {
-									HttpRequestWorker mWorker = new HttpRequestWorker();
-									JSONObject mObject = new JSONObject();
-									mObject.put("username", Config.USERNAME);
-									status = mWorker.PostRequest(
-											ServerConnector.GET_SLOT,
-											mObject.toString(), true);
-
-									JsonParser mParser = new JsonParser();
-									JsonElement mElements = mParser
-											.parse(status);
-									JsonArray mArray = mElements
-											.getAsJsonArray();
-									JsonElement mElement = mArray.get(0);
-
-									JSONObject mOb = new JSONObject(mElement
-											.toString());
-									final String slotno = mOb
-											.getString("slotno");
-									Config.CODE = mOb.getString("code");
-
-									Log.e("PARSER ELEMENT", mOb.get("slotno")
-											+ "");
-									runOnUiThread(new Runnable() {
-
-										@Override
-										public void run() {
-											// TODO Auto-generated method
-											// stub
-											code.setText(Config.CODE);
-										}
-									});
-
-								} catch (Exception e) {
-
-									Log.e("PARSER ERROR", e + "");
-								}
-							} else {
-								try {
-									JSONObject mObject = new JSONObject();
-									mObject.put("username", Config.USERNAME);
-									mObject.put("code", Config.CODE);
-
-									HttpRequestWorker mWorker = new HttpRequestWorker();
-									String response = mWorker.PostRequest(
-											ServerConnector.REMOVE_SLOT,
-											mObject.toString(), true);
-
-									if (response.equals("Success")) {
-										showAlert("Message", "Succesfully Removed !!");
-										//code.setText("");
-									} else {
-										showAlert("Alert",
-												"Invalid UserName or Password");
-									}
-
-								} catch (Exception e) {
-
-								}
-							}
-						}
-					});
-					mThread.start();
+					Log.e("PARSER ERROR", e + "");
+					return null;
 				}
+			} else {
+				try {
+					JSONObject mObject = new JSONObject();
+					mObject.put("username", Config.USERNAME);
+					mObject.put("code", Config.CODE);
 
-			});
+					HttpRequestWorker mWorker = new HttpRequestWorker();
+					 status = mWorker.PostRequest(
+							ServerConnector.REMOVE_SLOT,
+							mObject.toString(), true);
 
-			return status;
+					return status;
+
+				} catch (Exception e) {
+					return null;
+				}
+			}
+
+
 		}
 
 		protected void onPostExecute(String file_url) {
 			progress.dismiss();
+			if(!isDeletePressed){
+				try{
+					if(status != null){
+				JsonParser mParser = new JsonParser();
+				JsonElement mElements = mParser
+						.parse(status);
+				JsonArray mArray = mElements
+						.getAsJsonArray();
+				JsonElement mElement = mArray.get(0);
+
+				JSONObject mOb = new JSONObject(mElement
+						.toString());
+				final String slotno = mOb
+						.getString("slotno");
+				Config.CODE = mOb.getString("code");
+
+				Log.e("PARSER ELEMENT", mOb.get("slotno")
+						+ "");
+				runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method
+						// stub
+						code.setText(Config.CODE);
+					}
+				});
+					}
+				}catch(Exception e){
+					
+				}
+			}else{
+				if (status.equals("Success")) {
+					showAlert("Message", "Succesfully Removed !!");
+					code.setText("");
+					Config.CODE=null;
+				} else {
+					showAlert("Alert",
+							"Invalid Code");
+				}
+			}
 		}
 
 	}

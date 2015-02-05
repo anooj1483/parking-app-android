@@ -1,8 +1,6 @@
 package com.collaborativeClouds.PA.serverWorkers;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
@@ -16,7 +14,6 @@ import com.collaborativeClouds.PA.configs.Config;
 
 import android.util.Log;
 
-import java.io.IOException;
 
 /**
  * Created by anoojkrishnang on 14/12/14.

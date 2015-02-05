@@ -100,7 +100,7 @@ public class ParkingSlot extends Activity {
 		Bundle mBundle = getIntent().getExtras();
 
 		String parkingstatus = mBundle.getString("parkingstatus");
-
+		Log.e("PRKING STATUS",""+parkingstatus);
 		JsonParser mParser = new JsonParser();
 		JsonElement mElement = mParser.parse(parkingstatus);
 		bookedSlots = new Hashtable();
@@ -272,93 +272,85 @@ public class ParkingSlot extends Activity {
 		@Override
 		protected String doInBackground(String... args) {
 
-			runOnUiThread(new Runnable() {
+			try {
+				if (isConfirmPressed) {
+					HttpRequestWorker mWorker = new HttpRequestWorker();
+					JSONObject mObject = new JSONObject();
+					mObject.put("slotnumber", selectedSlot);
+					status = mWorker.PostRequest(
+							ServerConnector.BOOK_SLOT,
+							mObject.toString(),true);
+					return status;
+				} else {
+					HttpRequestWorker mWorker = new HttpRequestWorker();
+					JSONObject mObject = new JSONObject();
+					mObject.put("username", Config.USERNAME);
+					status = mWorker.PostRequest(
+							ServerConnector.GET_SLOT,
+							mObject.toString(),true);
 
-				@Override
-				public void run() {
+					return status;
 
-					Thread mThread = new Thread(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								if (isConfirmPressed) {
-									HttpRequestWorker mWorker = new HttpRequestWorker();
-									JSONObject mObject = new JSONObject();
-									mObject.put("slotnumber", selectedSlot);
-									status = mWorker.PostRequest(
-											ServerConnector.BOOK_SLOT,
-											mObject.toString(),true);
-									if (!status.equals("Failed")) {
-										Config.CODE=status;
-										isAlreadyBooked=true;
-										mConfirmSlot.setEnabled(false);
-										
-									} else {
-										showAlert("Alert", "Failed to Book the Slot");
-									}
-								} else {
-									HttpRequestWorker mWorker = new HttpRequestWorker();
-									JSONObject mObject = new JSONObject();
-									mObject.put("username", Config.USERNAME);
-									status = mWorker.PostRequest(
-											ServerConnector.GET_SLOT,
-											mObject.toString(),true);
-
-									try {
-
-										JsonParser mParser = new JsonParser();
-										JsonElement mElements = mParser
-												.parse(status);
-										JsonArray mArray = mElements
-												.getAsJsonArray();
-										JsonElement mElement = mArray.get(0);
-
-										JSONObject mOb = new JSONObject(
-												mElement.toString());
-										final String slotno = mOb
-												.getString("slotno");
-										Config.CODE	=	mOb.getString("code");
-
-										Log.e("PARSER ELEMENT",
-												mOb.get("slotno") + "");
-										runOnUiThread(new Runnable() {
-
-											@Override
-											public void run() {
-												// TODO Auto-generated method
-												// stub
-												isAlreadyBooked = true;
-												mConfirmSlot.setEnabled(false);
-												SlotBuilder(
-														slotno,
-														R.drawable.car_black_top);
-											}
-										});
-
-									} catch (Exception e) {
-										isAlreadyBooked = false;
-										Log.e("PARSER ERROR", e + "");
-										mConfirmSlot.setEnabled(true);
-									}
-
-								}
-							} catch (Exception e) {
-								mConfirmSlot.setEnabled(true);
-							}
-
-						}
-					});
-					mThread.start();
 				}
+			} catch (Exception e) {
+				mConfirmSlot.setEnabled(true);
+				return null;
+			}
 
-			});
-
-			return status;
+			//return status;
 
 		}
 
 		protected void onPostExecute(String file_url) {
+			//Log
 			progress.dismiss();
+			if(isConfirmPressed){
+				if (!status.equals("Failed")) {
+					Config.CODE=status;
+					isAlreadyBooked=true;
+					mConfirmSlot.setEnabled(false);
+					
+				} else {
+					showAlert("Alert", "Failed to Book the Slot");
+				}
+			}else{
+				try {
+
+					JsonParser mParser = new JsonParser();
+					JsonElement mElements = mParser
+							.parse(status);
+					JsonArray mArray = mElements
+							.getAsJsonArray();
+					JsonElement mElement = mArray.get(0);
+
+					JSONObject mOb = new JSONObject(
+							mElement.toString());
+					final String slotno = mOb
+							.getString("slotno");
+					Config.CODE	=	mOb.getString("code");
+
+					Log.e("PARSER ELEMENT",
+							mOb.get("slotno") + "");
+					runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							// TODO Auto-generated method
+							// stub
+							isAlreadyBooked = true;
+							mConfirmSlot.setEnabled(false);
+							SlotBuilder(
+									slotno,
+									R.drawable.car_black_top);
+						}
+					});
+
+				} catch (Exception e) {
+					isAlreadyBooked = false;
+					Log.e("PARSER ERROR", e + "");
+					mConfirmSlot.setEnabled(true);
+				}
+			}
 		}
 
 	}

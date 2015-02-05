@@ -5,7 +5,7 @@ package com.collaborativeClouds.PA.localWorkers;
  */
 public class ServerConnector {
 
-	public static String BASE_URL		=	"http://192.168.0.113:8080";
+	public static String BASE_URL		=	"http://192.168.0.101:8080";
     public static String PARKING_STATUS	=	BASE_URL+"/ParkingAppServer/parking/park/status";
     public static String BOOK_SLOT		=	BASE_URL+"/ParkingAppServer/parking/park/bookslot";
     public static String GET_SLOT		=	BASE_URL+"/ParkingAppServer/parking/park/getSlotofUser";

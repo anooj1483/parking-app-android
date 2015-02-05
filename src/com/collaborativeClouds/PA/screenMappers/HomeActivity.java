@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,11 +89,32 @@ public class HomeActivity extends Activity {
 	    .setIcon(android.R.drawable.ic_dialog_alert)
 	     .show();
 	}
-    
+    @Override
+    public void onBackPressed() {
+    	// TODO Auto-generated method stub
+    	//super.onBackPressed();
+    	new AlertDialog.Builder(this)
+        .setTitle("Alert")
+        .setMessage("Are you sure you want exit ?")
+        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) { 
+                // continue with delete
+            	System.exit(0);
+            }
+         })
+        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) { 
+                // do nothing
+            }
+         })
+        .setIcon(android.R.drawable.ic_dialog_alert)
+         .show();
+    	
+    }
     class AttemptLogin extends AsyncTask<String, String, String> {
 
 
-        String status;
+        String response;
 
         @Override
         protected void onPreExecute() {
@@ -112,48 +134,39 @@ public class HomeActivity extends Activity {
         @Override
         protected String doInBackground(String... args) {
 
-            runOnUiThread(new Runnable() {
-
-                @Override
-                public void run() {
-
-                    Thread mThread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try{
-                        	JSONObject mObject = new JSONObject();
-                        	mObject.put("username", username);
-                        	mObject.put("password",password);
-                        	
-                        	HttpRequestWorker mWorker = new HttpRequestWorker();
-                        	String response = mWorker.PostRequest(ServerConnector.LOGIN, mObject.toString(), false);
-                            
-                        	if(response.equals("Success")){
-                        		Config.USERNAME	=	username;
-                        		Intent mParkIntent = new Intent(HomeActivity.this, Dashboard.class);
-                                startActivity(mParkIntent);
-                        	}else{
-                        		showAlert("Alert","Invalid UserName or Password");
-                        	}
-                        	
-                        	
-                            }catch(Exception e){
-                            	
-                            }
-
-                        }
-                    });
-                    mThread.start();
+        	try{
+            	JSONObject mObject = new JSONObject();
+            	mObject.put("username", username);
+            	mObject.put("password",password);
+            	
+            	HttpRequestWorker mWorker = new HttpRequestWorker();
+            	 response = mWorker.PostRequest(ServerConnector.LOGIN, mObject.toString(), false);
+                
+            	
+            	 return response;
+            	
+                }catch(Exception e){
+                	return null;
                 }
 
-            });
-
-            return status;
+            
 
         }
 
+        protected void onProgressUpdate(String... progress) {
+            // Set progress percentage
+            //progress.setProgress(Integer.parseInt(progress[0]));
+        }
         protected void onPostExecute(String file_url) {
+        	Log.e("ONPOSTEXEC",""+file_url);
             progress.dismiss();
+            if(response.equals("Success")){
+        		Config.USERNAME	=	username;
+        		Intent mParkIntent = new Intent(HomeActivity.this, Dashboard.class);
+                startActivity(mParkIntent);
+        	}else{
+        		showAlert("Alert","Invalid UserName or Password");
+        	}
         }
 
     }
